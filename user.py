@@ -1,54 +1,59 @@
-class user():
-    def __init__(self):
-        self.nama = ""
-        self.hp = ""
-        self.kelamin = ""
-        self.email = ""
-        self.alamat = ""
-        self.password = ""
-        self.id_user = None
+class User:
 
-    def set_nama(self,nama):
-        self.nama = nama
+    def __init__(self, email, password, nama, gender, alamat, telepon):
+        self.__email = email
+        self.__password = password
+        self.__nama = nama
+        self.__gender = gender
+        self.__alamat = alamat
+        self.__phone = telepon
 
-    def get_nama(self):
-        return self.nama
+    @property
+    def getemail(self):
+        pass
 
-    def set_hp(self,hp):
-        self.hp = hp
+    @getemail.getter
+    def getemail(self):
+        return self.__email
 
-    def get_hp(self):
-        return self.hp
+    @property
+    def getPassword(self):
+        pass
 
-    def set_kelamin(self,kelamin):
-        self.kelamin = kelamin
+    @getPassword.getter
+    def getPassword(self):
+        return self.__password
 
-    def get_kelamin(self):
-        return self.kelamin
+    @property
+    def getnama(self):
+        pass
+
+    @getnama.getter
+    def getnama(self):
+        return self.__nama
+
+    @property
+    def getGender(self):
+        pass
+
+    @getGender.getter
+    def getGender(self):
+        return self.__gender
+
+    @property
+    def getalamat(self):
+        pass
+
+    @getalamat.getter
+    def getalamat(self):
+        return self.__alamat
+
+    @property
+    def getPhone(self):
+        pass
+
+    @getPhone.getter
+    def getPhone(self):
+        return self.__phone
+
     
-    def set_email(self,email):
-        self.email = email
-
-    def get_email(self):
-        return self.email
-
-    def set_alamat(self,alamat):
-        self.alamat = alamat
-
-    def get_alamat(self):
-        return self.alamat
-
-    def set_password(self,password):
-        self.password = password
-    
-    def get_password(self,password):
-        return self.password
-
-    def set_id(self,id_user):
-        self.id_user = id_user
-
-    def get_id(self):
-        return self.id_user
-
-if __name__ == "__main__":
-    pass
