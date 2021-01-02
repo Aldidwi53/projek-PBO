@@ -5,48 +5,50 @@ create_order_table = "CREATE TABLE IF NOT EXISTS pesan (id INTEGER NOT NULL PRIM
 
 insert_order = "INSERT INTO pesan (tanggalPesan, status_order) VALUES ('02/12/2020', 'free');"
 
-insert_new_customer = "INSERT INTO pesan (tanggalPesan, status_order) VALUES (?, 'dipesan');"
+insert_new_order = "INSERT INTO pesan (tanggalPesan, status_order) VALUES (?, ?);"
 
-update_order_status = "UPDATE pesan SET status_order = 'dipesan' WHERE id = ?"
-
-query_order = "SELECT id, tanggalPesan, status_order FROM pesan WHERE status_order = 'free'"
+query_order = "SELECT * FROM pesan"
 
 query_sales = "SELECT id, tanggalPesan, status_order FROM pesan WHERE statu_order = 'dipesan'"
 
 query_del_order = "DELETE FROM pesan WHERE id=?"
 
-connection = sqlite3.connect("wow.db")
+query_del_all_order = "DELETE FROM pesan"
 
-def createOrderTable(connection):
-    with connection:
-        connection.execute(create_order_table)
+class dborder:
 
+    connection = sqlite3.connect("wow.db")
 
-def addOrder(connection):
-    with connection:
-        connection.execute(insert_order)
+    def __init__(self):
+        pass
 
-
-def updateStatus(connection):
-    with connection:
-        connection.execute(update_order_status)
+    def createOrderTable(self,connection):
+        with connection:
+            connection.execute(create_order_table)
 
 
-def getOrder(connection):
-    with connection:
-        return connection.execute(query_order).fetchall()
+    def addOrder(self,connection):
+        with connection:
+            connection.execute(insert_order)
 
-def getSales(connection):
-    with connection:
-        return connection.execute(query_sales).fetchall()
+    def getOrder(self,connection):
+        with connection:
+            return connection.execute(query_order).fetchall()
 
-def add_new_order(connection, tanggalPesan):
-    with connection:
-        connection.execute(
-            insert_new_customer, (connection, tanggalPesan))
+    def getSales(self,connection):
+        with connection:
+            return connection.execute(query_sales).fetchall()
 
-def del_order(connection, id):
-    with connection:
-        return connection.execute(query_del_order, (id,))
+    def add_new_order(self,connection, tanggalPesan):
+        with connection:
+            connection.execute(
+                insert_new_order, (tanggalPesan,'dipesan'))
 
+    def del_order(self,connection, id):
+        with connection:
+            return connection.execute(query_del_order, (id,))
+
+    def del_all_order(self,connection):
+        with connection:
+            return connection.execute(query_del_all_order)
 

@@ -8,21 +8,26 @@ query_model = "SELECT * FROM model"
 
 query_del_model = "DELETE FROM model"
 
-connection = sqlite3.connect("wow.db")
+class dbmodel:
 
-def create_model_table(connection):
-    with connection:
-        connection.execute(create_model)
+    connection = sqlite3.connect("wow.db")
 
-def insert_model(connection):
-    with connection:
-        connection.execute(query_insert_model)
+    def __init__(self):
+        pass
 
-def get_model(connection):
-    with connection:
-        return connection.execute(query_model).fetchall()
+    def create_model_table(self,connection):
+        with connection:
+            connection.execute(create_model)
 
-def del_model(connection):
-    with connection:
-        return connection.execute(query_del_model)
+    def insert_model(self,connection):
+        with connection:
+            connection.execute(query_insert_model)
+
+    def get_model(self,connection):
+        with connection:
+            return connection.execute(query_model).fetchall()
+
+    def del_model(self,connection):
+        with connection:
+            return connection.execute(query_del_model)
 

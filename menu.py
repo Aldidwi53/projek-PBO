@@ -1,18 +1,18 @@
 import user
-from dbconnect import createUserTable, add_new_customer, get_customer, del_customer, login_customer
+from dbconnect import dbconnect
 import dbconnect
 import karyawan
 import customer
-from dbmodel import create_model_table, get_model
+from dbmodel import dbmodel
 import dbmodel
 import model
-from dborder import add_new_order, del_order, getOrder
+from dborder import dborder
 import dborder
 import sqlite3
 from datetime import datetime
 
 
-menu_awal =""" Selamat Datang
+menu_awal ="""\n Selamat Datang
 Pilih salah satu opsi
 1. Sign Up
 2. menghapus data user
@@ -44,8 +44,13 @@ menu_del_booking = """delete Booking"""
 connection = sqlite3.connect("wow.db")
 
 def menu():
-    createUserTable(connection)
-    create_model_table(connection)
+    user1 = dbconnect.dbconnect()
+    model1 = dbmodel.dbmodel()
+    dborder1 = dborder.dborder()
+    user1.createUserTable(connection)
+    model1.create_model_table(connection)
+    dborder1.createOrderTable(connection)
+
     a = True
     while a == True:
         b = str(input(menu_awal))
@@ -58,18 +63,18 @@ def menu():
             alamat= input('alamat = ')
             password = input('password = ')
                 
-            add_new_customer(connection, email, password, nama, gender, alamat, telepon)
+            user1.add_new_customer(connection, email, password, nama, gender, alamat, telepon)
                 
             print ('berhasil')
 
         elif b == '2':
             print(Menu_del)
             id = input('id = ')
-            del_customer(connection, id)
+            user1.del_customer(connection, id)
 
         elif b == '3':
             print(menu_user)
-            data = get_customer(connection)
+            data = user1.get_customer(connection)
             base = ['email','password','nama','gender','alamat','telepon']
             print(base)
             for i in range(len(data)) :
@@ -79,12 +84,12 @@ def menu():
             print(menu_login)
             email = input('email = ')
             password = input('password = ')
-            login_customer(connection,email,password)
+            user1.login_customer(connection,email,password)
 
         elif b == '5':
             print(menu_model)
-            data = get_model(connection)
-            base = ['nama','harga']
+            data = model1.get_model(connection)
+            base = ['id','nama','harga']
             print(base)
             for i in range(len(data)) :
                 print (data[i])
@@ -93,19 +98,19 @@ def menu():
             print(menu_booking)
             tanggalPesan = input('tanggal booking = ')
 
-            add_new_order(connection, tanggalPesan)
+            dborder1.add_new_order(connection, tanggalPesan)
                 
             print ('berhasil')
 
         elif b == '7':
             print(menu_del_booking)
             id = input('id = ')
-            del_order(connection, id)
+            dborder1.del_order(connection, id)
 
         elif b == '8':
             print(menu_booking)
-            data = getOrder(connection)
-            base = ['tanggal','status']
+            data = dborder1.getOrder(connection)
+            base = ['id','tanggal','status']
             print(base)
             for i in range(len(data)) :
                 print (data[i])
